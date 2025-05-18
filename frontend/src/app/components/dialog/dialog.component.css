@@ -1,0 +1,52 @@
+/* src/app/components/dialog/dialog.component.css */
+.dialog-container {
+  background-color: #0f0f0f;
+  color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #1a3694;
+  box-shadow: 0 4px 20px rgba(26, 54, 148, 0.4);
+  padding: 16px;
+}
+
+h2[mat-dialog-title] {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.success-title {
+  color: #3a56b4;
+}
+
+.error-title {
+  color: #ff5555;
+}
+
+[mat-dialog-content] {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-align: center;
+}
+
+[mat-dialog-actions] {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 16px;
+  border-top: 1px solid #333;
+  margin-top: 8px;
+  padding-top: 16px;
+}
+
+button[mat-button] {
+  background-color: #1a3694;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+button[mat-button]:hover {
+  background-color: #2a46a4;
+}

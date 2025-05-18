@@ -1,6 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthService} from 'src/app/services/auth.service';
+import {DialogService} from '../../services/dialog.service';
+
+
 
 @Component({
   selector: 'app-register',
@@ -13,6 +16,7 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   formBuilder = inject(FormBuilder);
   authService = inject(AuthService);
+  dialogService = inject(DialogService);
 
   constructor() {}
 
@@ -31,9 +35,14 @@ export class RegisterComponent implements OnInit {
       if (username && password && passwordConfirmation) {
         this.authService.register(username, password, passwordConfirmation)
           .subscribe({
-            next: () => {},
-            error: (err) => {}
-          });
+            next: () => {
+              this.dialogService.openDialog(true, 'Registration successful');
+
+              this.registerForm.reset();
+            },
+            error: (err) => {
+              this.dialogService.openDialog(false, 'Registration failed')
+            }});
       }
     }
   }

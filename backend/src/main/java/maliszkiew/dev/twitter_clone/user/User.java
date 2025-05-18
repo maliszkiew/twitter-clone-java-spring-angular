@@ -31,11 +31,10 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(unique = true, nullable = false)
-    @Length(min = 7, max = 20)
+    @Length(min = 3, max = 20)
     private String username;
 
     @Column(nullable = false)
-    @Length(min = 8, max = 20)
     private String password;
 
     @Enumerated(EnumType.STRING)
