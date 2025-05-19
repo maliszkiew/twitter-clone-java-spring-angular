@@ -3,18 +3,22 @@ package maliszkiew.dev.twitter_clone.user;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import maliszkiew.dev.twitter_clone.post.Post;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -41,6 +45,10 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserRole userRole;
 
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Post> posts = new ArrayList<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());
@@ -48,13 +56,22 @@ public class User implements UserDetails {
     }
 
     @Override
-    public String getUsername(){
-        return username;
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
     @Override
-    public String getPassword(){
-        return password;
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
