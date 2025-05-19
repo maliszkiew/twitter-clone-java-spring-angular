@@ -1,13 +1,18 @@
 <div class="registerBackground">
-  <form [formGroup] = "registerForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h2>Register</h2>
+
     <label for="username">Username</label>
     <input id="username" type="text" formControlName="username"/>
 
     <label for="password">Password</label>
     <input id="password" type="password" formControlName="password"/>
 
+    <label for="passwordConfirmation">Confirm Password</label>
     <input id="passwordConfirmation" type="password" formControlName="passwordConfirmation"/>
-    <input type="button" value="Register" (click)="onSubmit()"/>
 
+    <input type="submit" value="Register"/>
+
+    <label>Have an account? <a routerLink="/login">Login</a></label>
   </form>
 </div>

@@ -77,3 +77,9 @@ h2 {
   color: #3a56b4;
   margin-bottom: 20px;
 }
+
+a {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
