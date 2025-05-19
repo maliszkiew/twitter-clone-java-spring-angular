@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
             this.dialogService.openDialog(true, 'Login successful');
           },
           error: (err) => {
-            this.dialogService.openDialog(false, `Login failed'}`);
+            this.dialogService.openDialog(false, 'Login failed');
           }
         });
     }
