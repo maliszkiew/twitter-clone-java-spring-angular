@@ -22,9 +22,9 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginRegisterDto userLoginRegisterDto, HttpSession session) {
-        userService.loginUser(userLoginRegisterDto);
+        UserDto userDto = userService.loginUser(userLoginRegisterDto);
         session.setAttribute("user", userLoginRegisterDto.getUsername());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(userDto);
     }
 
     @GetMapping("/logout")
@@ -37,11 +37,10 @@ public class UserController {
     public ResponseEntity<?> getStatus(HttpSession session) {
         String username = (String) session.getAttribute("user");
         if (username != null) {
-            return ResponseEntity.ok().body(Map.of("authenticated", true, "username", username));
+            UserDto userDto = userService.getUserByUsername(username);
+            return ResponseEntity.ok(userDto);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("authenticated", false));
         }
     }
-
-
 }

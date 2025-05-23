@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { AuthService } from '../../services/auth.service';
 import { DialogService } from '../../services/dialog.service';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   standalone: true,
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   formBuilder = inject(FormBuilder);
   authService = inject(AuthService);
   dialogService = inject(DialogService);
+  router = inject(Router);
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
         .subscribe({
           next: () => {
             this.dialogService.openDialog(true, 'Login successful');
+            this.router.navigate(['/home']);
           },
           error: (err) => {
             this.dialogService.openDialog(false, 'Login failed');

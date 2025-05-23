@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       const { username, password, passwordConfirmation } = this.registerForm.value;
 
-      this.authService.register(username, password, passwordConfirmation)
+      this.authService.register(username, password)
         .subscribe({
           next: () => {
             this.dialogService.openDialog(true, 'Registration successful');

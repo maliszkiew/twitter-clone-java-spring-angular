@@ -1,5 +1,6 @@
 package maliszkiew.dev.twitter_clone.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,9 +46,17 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserRole userRole;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Post> posts = new ArrayList<>();
+
+    @Column(nullable = false)
+    private String bio;
+
+    @Column(nullable = false)
+    private Integer postsCount;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
