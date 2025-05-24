@@ -43,6 +43,7 @@ public class TwitterCloneApplication {
         LocalDateTime yesterday = now.minusDays(1);
         LocalDateTime lastWeek = now.minusDays(7);
 
+
         Post post1 = Post.builder()
                 .author(admin)
                 .content("Welcome to our Twitter clone! This is the first post from admin.")
@@ -63,7 +64,6 @@ public class TwitterCloneApplication {
                 .createdAt(now)
                 .updatedAt(now)
                 .build();
-
         postRepo.saveAll(List.of(post1, post2, post3));
     }
 

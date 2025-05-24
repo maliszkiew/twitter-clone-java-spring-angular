@@ -15,9 +15,8 @@ public class UserService {
     private final UserRepo userRepo;
     private final UserDetailsServiceImpl userDetailsService;
     private final PasswordEncoder passwordEncoder;
-    private final UserMapper userMapper;
 
-    public void saveUser(UserLoginRegisterDto userLoginRegisterDto) {
+    public User saveUser(UserLoginRegisterDto userLoginRegisterDto) {
         if (userRepo.findByUsername(userLoginRegisterDto.getUsername()).isPresent()) {
             throw new UserAlreadyExistsException(userLoginRegisterDto.getUsername());
         }
@@ -29,10 +28,9 @@ public class UserService {
                 .bio("")
                 .postsCount(0)
                 .build();
-        userRepo.save(userToSave);
+        return userRepo.save(userToSave);
     }
-
-    public UserDto loginUser(UserLoginRegisterDto userLoginRegisterDto) {
+    public User loginUser(UserLoginRegisterDto userLoginRegisterDto) {
         Optional<User> user = userRepo.findByUsername(userLoginRegisterDto.getUsername());
         if (user.isEmpty()) {
             throw new UserNotFoundException(userLoginRegisterDto.getUsername());
@@ -44,12 +42,12 @@ public class UserService {
         if (!passwordMatches) {
             throw new AuthenticationException("Invalid password");
         }
-        return userMapper.toDto(user.get());
+        return user.get();
     }
 
-    public UserDto getUserByUsername(String username) {
+    public User getUserByUsername(String username) {
         User user = userRepo.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
-        return userMapper.toDto(user);
+        return user;
     }
 }

@@ -13,16 +13,17 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 public class UserController {
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserLoginRegisterDto userLoginRegisterDto){
-        userService.saveUser(userLoginRegisterDto);
-        return ResponseEntity.ok().build();
+        UserDto userDto = userMapper.toDto(userService.saveUser(userLoginRegisterDto));
+        return ResponseEntity.ok(userDto);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginRegisterDto userLoginRegisterDto, HttpSession session) {
-        UserDto userDto = userService.loginUser(userLoginRegisterDto);
+        UserDto userDto = userMapper.toDto(userService.loginUser(userLoginRegisterDto));
         session.setAttribute("user", userLoginRegisterDto.getUsername());
         return ResponseEntity.ok(userDto);
     }
@@ -37,7 +38,7 @@ public class UserController {
     public ResponseEntity<?> getStatus(HttpSession session) {
         String username = (String) session.getAttribute("user");
         if (username != null) {
-            UserDto userDto = userService.getUserByUsername(username);
+            UserDto userDto = userMapper.toDto(userService.getUserByUsername(username));
             return ResponseEntity.ok(userDto);
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("authenticated", false));

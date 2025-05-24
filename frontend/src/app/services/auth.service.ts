@@ -74,9 +74,9 @@ export class AuthService {
     return this.http.get(this.checkAuthUrl, {withCredentials: true}).pipe(
       map((response: any) => {
         console.log('Auth status response:', response);
-        if (response && (response.id || (response.user && response.user.id))) {
+        if (response && response.id) {
           this.isLoggedInSubject.next(true);
-          this.updateCurrentUser(response.user || response);
+          this.updateCurrentUser(response);
           return true;
         } else {
           this.isLoggedInSubject.next(false);
