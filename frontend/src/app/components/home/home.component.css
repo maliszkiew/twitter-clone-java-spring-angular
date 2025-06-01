@@ -1,0 +1,29 @@
+.homeContainer {
+  display: flex;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+  border-left: 1px solid #333;
+  border-right: 1px solid #333;
+  box-shadow: 0 0 40px rgba(26, 54, 148, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+app-left-panel {
+  flex: 0 0 15%;
+  border-right: 1px solid #333;
+}
+
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+
+router-outlet {
+  width: 0;
+}

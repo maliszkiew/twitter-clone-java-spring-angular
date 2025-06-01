@@ -1,0 +1,34 @@
+<div class="post-creator-container">
+  <div class="post-creator-header">
+    <div class="avatar-placeholder" *ngIf="user">
+      <span>{{ user.username.charAt(0).toUpperCase() }}</span>
+    </div>
+    <div class="user-info" *ngIf="user">
+      <span class="username">{{ user.username }}</span>
+    </div>
+  </div>
+
+  <div class="post-content-area">
+    <textarea
+      placeholder="What's on your mind?"
+      [(ngModel)]="content"
+      rows="3"
+      maxlength="500">
+    </textarea>
+    <div class="character-count" [ngClass]="{'warning': content.length > 400}">
+      {{ content.length }}/500
+    </div>
+  </div>
+
+  <div class="post-actions">
+    <button class="cancel-btn" *ngIf="content.length > 0" (click)="clearPost()">
+      Cancel
+    </button>
+    <button
+      class="post-btn"
+      [disabled]="!content.trim() || isSubmitting"
+      (click)="submitPost()">
+      {{ isSubmitting ? 'Posting...' : 'Post' }}
+    </button>
+  </div>
+</div>

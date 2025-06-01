@@ -1,0 +1,39 @@
+<div class="post-item">
+  <div class="post-header">
+    <div class="post-author">
+      <div class="author-avatar">
+        {{ post.authorUsername.charAt(0) }}
+      </div>
+      <div class="author-name">{{ post.authorUsername }}</div>
+    </div>
+    <div class="post-date-info">
+      <span>Created: {{ post.createdAt }}</span>
+      <span *ngIf="post.updatedAt !== post.createdAt" class="date-separator">•</span>
+      <span *ngIf="post.updatedAt !== post.createdAt">Updated: {{ post.updatedAt }}</span>
+    </div>
+    <div class="post-actions">
+      <button class="action-btn" title="More options">•••</button>
+    </div>
+  </div>
+
+  <div class="post-content">
+    {{ post.content }}
+  </div>
+
+
+
+  <div class="post-footer">
+    <button class="interaction-btn">
+      <span class="icon">♥</span>
+      <span>Like</span>
+    </button>
+    <button class="interaction-btn">
+      <span class="icon">💬</span>
+      <span>Comment</span>
+    </button>
+    <button class="interaction-btn">
+      <span class="icon">↗</span>
+      <span>Share</span>
+    </button>
+  </div>
+</div>
