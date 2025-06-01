@@ -1,0 +1,20 @@
+<div class="comment card">
+  <div class="comment-header flex items-center">
+    <div class="avatar avatar-sm">{{ comment.authorUsername.charAt(0) }}</div>
+    <div class="username font-bold text-md">{{ comment.authorUsername }}</div>
+    <div class="date text-sm text-secondary">{{ comment.createdAt }}</div>
+    <button *ngIf="isCommentAuthor" class="icon-btn" (click)="deleteComment()">🗑️</button>
+  </div>
+  <div class="content text-md">{{ comment.content }}</div>
+  <div class="comment-footer flex items-center">
+    <button
+      class="icon-btn"
+      [class.active]="isLiked"
+      [disabled]="likeLoading"
+      (click)="toggleLike()">
+      <span class="like-icon">{{ isLiked ? '❤️' : '♥' }}</span>
+      <span class="like-count text-sm">{{ likeCount }} {{ likeCount === 1 ? 'like' : 'likes' }}</span>
+    </button>
+  </div>
+</div>
+

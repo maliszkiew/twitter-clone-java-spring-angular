@@ -1,31 +1,32 @@
-<div class="post-creator-container">
-  <div class="post-creator-header">
-    <div class="avatar-placeholder" *ngIf="user">
+<div class="post-creator-container card mb-md">
+  <div class="post-creator-header flex items-center mb-md">
+    <div class="avatar avatar-md" *ngIf="user">
       <span>{{ user.username.charAt(0).toUpperCase() }}</span>
     </div>
-    <div class="user-info" *ngIf="user">
-      <span class="username">{{ user.username }}</span>
+    <div class="user-info flex-col" *ngIf="user">
+      <span class="username font-medium">{{ user.username }}</span>
     </div>
   </div>
 
-  <div class="post-content-area">
+  <div class="post-content-area mb-lg">
     <textarea
+      class="input-field"
       placeholder="What's on your mind?"
       [(ngModel)]="content"
       rows="3"
       maxlength="500">
     </textarea>
-    <div class="character-count" [ngClass]="{'warning': content.length > 400}">
+    <div class="character-count text-sm" [ngClass]="{'text-error': content.length > 400, 'text-secondary': content.length <= 400}">
       {{ content.length }}/500
     </div>
   </div>
 
-  <div class="post-actions">
-    <button class="cancel-btn" *ngIf="content.length > 0" (click)="clearPost()">
+  <div class="post-actions flex justify-between gap-md">
+    <button class="secondary-btn" *ngIf="content.length > 0" (click)="clearPost()">
       Cancel
     </button>
     <button
-      class="post-btn"
+      class="primary-btn"
       [disabled]="!content.trim() || isSubmitting"
       (click)="submitPost()">
       {{ isSubmitting ? 'Posting...' : 'Post' }}

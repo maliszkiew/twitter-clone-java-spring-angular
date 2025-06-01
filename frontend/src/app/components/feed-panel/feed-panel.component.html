@@ -1,11 +1,15 @@
 <div class="feed-panel">
-  <div *ngIf="loading" class="loading">
+  <div *ngIf="loading" class="loading text-center text-secondary">
     Loading posts...
   </div>
   <div *ngIf="!loading && !error" class="post-list">
     <app-post *ngFor="let post of posts" [post]="post"></app-post>
+    <div class="load-more text-center mb-md">
+      <button class="secondary-btn" (click)="loadPosts()">Load more</button>
+    </div>
   </div>
-  <div *ngIf="!loading && posts.length === 0" class="empty-feed">
+  <div *ngIf="!loading && posts.length === 0" class="empty-feed text-center text-secondary">
     No posts found. Follow some users to see their posts here!
   </div>
 </div>
+

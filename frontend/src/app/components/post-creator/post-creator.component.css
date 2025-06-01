@@ -1,123 +1,22 @@
 .post-creator-container {
-  background-color: var(--bg-panel);
-  border-radius: 8px;
-  padding: 20px;
   margin-top: 20px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 10px var(--shadow-color);
-}
-
-.post-creator-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.avatar-placeholder {
-  width: 40px;
-  height: 40px;
-  background-color: var(--primary-color);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 12px;
-  box-shadow: 0 2px 6px var(--shadow-color);
-}
-
-.avatar-placeholder span {
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.username {
-  font-weight: 500;
-  color: var(--text-light);
-}
-
-.post-content-area {
-  position: relative;
-  margin-bottom: 15px;
-}
-
-textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  background-color: var(--bg-input);
-  color: var(--text-light);
   resize: none;
-  font-family: inherit;
-  font-size: 16px;
-  box-sizing: border-box;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: border-color 0.2s;
 }
 
-textarea:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 8px var(--shadow-color);
+.post-content-area textarea {
+  resize: vertical;
+  margin-bottom: 10px;
+}
+.mb-lg{
+  resize: vertical;
 }
 
 .character-count {
   position: absolute;
   bottom: -20px;
   right: 10px;
-  font-size: 12px;
-  color: #888;
 }
 
-.character-count.warning {
-  color: #f44336;
-}
-
-.post-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 25px;
-}
-
-.post-btn {
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.post-btn:hover:not(:disabled) {
-  background-color: var(--primary-hover);
-}
-
-.post-btn:disabled {
-  background-color: #444;
-  cursor: not-allowed;
-  opacity: 0.7;
-}
-
-.cancel-btn {
-  padding: 10px 20px;
-  background-color: transparent;
-  color: #888;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
-}
-
-.cancel-btn:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+.user-info{
+  margin-left: 8px;
 }

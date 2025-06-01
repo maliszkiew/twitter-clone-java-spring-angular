@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ElementRef, ViewChild } from '@angular/core';
 import {PostsService} from '../../services/posts.service';
 import {PostComponent} from '../post/post.component';
 import {CommonModule} from '@angular/common';
@@ -24,19 +24,28 @@ export class FeedPanelComponent {
   }
 
   loadPosts() {
+    const scrollPosition = window.scrollY;
+
     this.loading = true;
     this.postService.getLatestPosts(this.page, this.size).subscribe({
       next: (response) => {
-        this.posts = response;
+        this.updatePosts(response);
         this.page++;
         this.loading = false;
+
+        setTimeout(() => {
+          window.scrollTo(0, scrollPosition);
+        }, 0);
       },
       error: (error) => {
         console.error('Error loading posts', error);
         this.loading = false;
       }
     });
+  }
 
+  updatePosts(newPosts: Post[]) {
+    newPosts.forEach(post => {this.posts.push(post);})
   }
 
 }

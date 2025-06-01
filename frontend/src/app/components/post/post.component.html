@@ -1,39 +1,75 @@
-<div class="post-item">
-  <div class="post-header">
-    <div class="post-author">
-      <div class="author-avatar">
+<div class="post-item card card-hover">
+  <div class="post-header flex items-center mb-md">
+    <div class="post-author flex items-center gap-sm">
+      <div class="author-avatar avatar avatar-md">
         {{ post.authorUsername.charAt(0) }}
       </div>
-      <div class="author-name">{{ post.authorUsername }}</div>
+      <div class="author-name font-bold">{{ post.authorUsername }}</div>
     </div>
-    <div class="post-date-info">
+    <div class="post-date-info text-sm text-secondary">
       <span>Created: {{ post.createdAt }}</span>
       <span *ngIf="post.updatedAt !== post.createdAt" class="date-separator">•</span>
       <span *ngIf="post.updatedAt !== post.createdAt">Updated: {{ post.updatedAt }}</span>
     </div>
     <div class="post-actions">
-      <button class="action-btn" title="More options">•••</button>
+      <button class="icon-btn" title="More options">•••</button>
     </div>
   </div>
 
-  <div class="post-content">
+  <div class="post-content mb-md">
     {{ post.content }}
   </div>
 
-
-
-  <div class="post-footer">
-    <button class="interaction-btn">
-      <span class="icon">♥</span>
-      <span>Like</span>
+  <div class="post-footer flex">
+    <button class="icon-btn" [class.active]="isLiked" [disabled]="likeLoading" (click)="toggleLike()">
+      <span class="icon">{{ isLiked ? '❤️' : '♥' }}</span>
+      <span>{{ likeCount }} {{ likeCount === 1 ? 'like' : 'likes' }}</span>
     </button>
-    <button class="interaction-btn">
+    <button class="icon-btn" (click)="toggleComments()">
       <span class="icon">💬</span>
-      <span>Comment</span>
+      <span>Comments</span>
     </button>
-    <button class="interaction-btn">
+    <button class="icon-btn">
       <span class="icon">↗</span>
       <span>Share</span>
     </button>
+  </div>
+
+  <div *ngIf="showComments" class="comments-section">
+    <div class="divider"></div>
+    <div class="comment-form mb-md">
+      <textarea
+        class="input-field mb-sm"
+        placeholder="Write a comment..."
+        [(ngModel)]="commentContent"
+      ></textarea>
+      <div class="form-actions flex justify-between items-center">
+        <button
+          class="primary-btn"
+          [disabled]="!commentContent.trim()"
+          (click)="submitComment()"
+        >Submit</button>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="loading-comments text-center text-secondary">
+      Loading comments...
+    </div>
+
+    <div class="comments-list">
+      <app-comment
+        *ngFor="let comment of comments"
+        [comment]="comment"
+        (delete)="handleDeleteComment($event)"
+      ></app-comment>
+    </div>
+
+    <div *ngIf="!loading && comments.length > 0" class="load-more-comments text-center mb-md">
+      <button class="secondary-btn" (click)="loadComments()">Load more comments</button>
+    </div>
+
+    <div *ngIf="!loading && comments.length === 0" class="no-comments text-center text-secondary">
+      No comments
+    </div>
   </div>
 </div>

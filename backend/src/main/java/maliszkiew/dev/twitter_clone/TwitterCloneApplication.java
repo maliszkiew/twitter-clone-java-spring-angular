@@ -65,6 +65,15 @@ public class TwitterCloneApplication {
                 .updatedAt(now)
                 .build();
         postRepo.saveAll(List.of(post1, post2, post3));
+        for(int i=0; i<20; i++){
+            Post post = Post.builder()
+                    .author(user)
+                    .content("Generated post #" + (i + 1) + " from user.")
+                    .createdAt(now.minusHours(i))
+                    .updatedAt(now.minusHours(i))
+                    .build();
+            postRepo.save(post);
+        }
     }
 
 }

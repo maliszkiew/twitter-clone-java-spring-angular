@@ -1,11 +1,9 @@
 .container {
-  background-color: var(--bg-panel);
-  border-right: 1px solid var(--primary-color);
   height: 100vh;
   width: 250px;
-  box-shadow: 2px 0 10px var(--shadow-color);
-  padding: 0;
+  position: sticky;
   align-content: center;
+  top: 0;
 }
 
 .nav-menu ul {
@@ -20,16 +18,3 @@
   text-align: center;
 }
 
-.nav-menu a {
-  display: block;
-  padding: 15px 20px;
-  color: var(--text-light);
-  text-decoration: none;
-  transition: background-color 0.2s;
-}
-
-.nav-menu a:hover,
-.nav-menu a.active {
-  background-color: var(--primary-color);
-  color: white;
-}

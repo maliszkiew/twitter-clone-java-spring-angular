@@ -1,11 +1,11 @@
-package maliszkiew.dev.twitter_clone.post;
+package maliszkiew.dev.twitter_clone.comment;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-import maliszkiew.dev.twitter_clone.comment.Comment;
-import maliszkiew.dev.twitter_clone.like.Like;
+import maliszkiew.dev.twitter_clone.comment.like.CommentLike;
+import maliszkiew.dev.twitter_clone.post.Post;
 import maliszkiew.dev.twitter_clone.user.User;
 
 import java.time.LocalDateTime;
@@ -18,17 +18,17 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "post")
-public class Post {
+@Table(name = "comment")
+public class Comment {
     @Id
     @Column(unique = true, nullable = false)
     @SequenceGenerator(
-            name = "post_sequence",
-            sequenceName = "post_sequence"
+            name = "comment_sequence",
+            sequenceName = "comment_sequence"
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "post_sequence"
+            generator = "comment_sequence"
     )
     private Long id;
 
@@ -36,6 +36,11 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", nullable = false)
+    private Post post;
 
     @Column(nullable = false)
     private String content;
@@ -47,17 +52,11 @@ public class Post {
     private LocalDateTime updatedAt;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private List<Comment> comments = new ArrayList<>();
-
-    @JsonManagedReference
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
-    private List<Like> likes = new ArrayList<>();
+    private List<CommentLike> likes = new ArrayList<>();
 
     @Column(nullable = false)
     @Builder.Default
     private Integer likesCount = 0;
 }
-

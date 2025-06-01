@@ -1,27 +1,27 @@
-<div class="profile-panel-container" *ngIf="user">
-  <div class="profile-header">
-    <div class="avatar-placeholder">
+<div class="profile-panel-container card mb-md" *ngIf="user">
+  <div class="profile-header flex items-center mb-md">
+    <div class="avatar avatar-lg">
       <span>{{ user.username.charAt(0).toUpperCase() }}</span>
     </div>
     <div class="profile-info">
-      <h2>{{ user.username }}</h2>
-      <span class="role-badge">{{ user.userRole }}</span>
+      <h2 class="m-0 text-light mb-sm">{{ user.username }}</h2>
+      <span class="badge badge-primary">{{ user.userRole }}</span>
     </div>
   </div>
 
-  <div class="profile-stats">
-    <div class="stat-item">
-      <span class="stat-value">{{ user.postsCount }}</span>
-      <span class="stat-label">Posts</span>
+  <div class="profile-stats flex mb-md">
+    <div class="stat-item flex-col items-center">
+      <span class="stat-value text-primary">{{ user.postsCount }}</span>
+      <span class="stat-label text-sm">Posts</span>
     </div>
   </div>
 
-  <div class="profile-bio" *ngIf="user.bio">
-    <h3>Bio</h3>
-    <p>{{ user.bio }}</p>
+  <div class="profile-bio mb-md" *ngIf="user.bio">
+    <h3 class="text-primary mb-sm">Bio</h3>
+    <p class="m-0">{{ user.bio }}</p>
   </div>
   <div class="profile-actions">
-    <button class="edit-profile-btn">Edit Profile</button>
+    <button class="primary-btn">Edit Profile</button>
   </div>
   <app-post-creator>
   </app-post-creator>

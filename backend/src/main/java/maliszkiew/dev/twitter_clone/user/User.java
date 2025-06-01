@@ -2,10 +2,11 @@ package maliszkiew.dev.twitter_clone.user;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import maliszkiew.dev.twitter_clone.comment.Comment;
+import maliszkiew.dev.twitter_clone.comment.like.CommentLike;
+import maliszkiew.dev.twitter_clone.follow.Follow;
+import maliszkiew.dev.twitter_clone.like.Like;
 import maliszkiew.dev.twitter_clone.post.Post;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,6 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -51,12 +53,44 @@ public class User implements UserDetails {
     @Builder.Default
     private List<Post> posts = new ArrayList<>();
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Comment> comments = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Like> likes = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<CommentLike> commentLikes = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Follow> following = new ArrayList<>();  // Users that this user follows
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Follow> followers = new ArrayList<>();  // Users that follow this user
+
     @Column(nullable = false)
     private String bio;
 
     @Column(nullable = false)
     private Integer postsCount;
 
+    @Column(nullable = false)
+    @Builder.Default
+    private Integer followersCount = 0;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Integer followingCount = 0;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -84,3 +118,4 @@ public class User implements UserDetails {
         return true;
     }
 }
+
